@@ -14,7 +14,7 @@ export default function App() {
   const [favoriteCity, setFavoriteCity] = useState({});
 
   useEffect(() => {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=paris&appid=d58db88281f09c8927b40fd065829bbe`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=paris&appid={ADD YOUR KEY}`)
     .then(res => res.json())
     .then(res => {
       setFavoriteCity(res)
