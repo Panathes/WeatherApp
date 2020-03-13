@@ -10,20 +10,24 @@ import  { ProfileScreen }  from './components/ProfileScreen'
 
 const Tab = createBottomTabNavigator();
 
+export const Context = React.createContext();
+
 export default function App() {
   const [favoriteCity, setFavoriteCity] = useState({});
 
   useEffect(() => {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=paris&appid={ADD YOUR KEY}`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=paris&appid={API-KEY}`)
     .then(res => res.json())
     .then(res => {
       setFavoriteCity(res)
-      console.log(favoriteCity)
-      console.log(res)
+      // console.log(favoriteCity)
+      // console.log(res);
     }) 
-  });
+  }, []);
 
+  console.log(favoriteCity);
   return (
+    <Context.Provider value={[favoriteCity]}>
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({ route }) => ({
@@ -46,11 +50,12 @@ export default function App() {
             inactiveTintColor: 'gray',
           }}
         >
-          <Tab.Screen name="Home" component={HomeScreen}  />
+          <Tab.Screen name="Home" component={HomeScreen}/>
           <Tab.Screen name="Weekly" component={WeeklyScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
       </NavigationContainer>
+    </Context.Provider>      
   );
 }
 
